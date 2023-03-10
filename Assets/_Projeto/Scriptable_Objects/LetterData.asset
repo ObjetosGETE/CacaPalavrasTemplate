@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e09caa6042260842a4b66661c5b08d1, type: 3}
   m_Name: LetterData
   m_EditorClassIdentifier: 
-  letterSize: 32
+  letterSize: 46.83
   letterColor: {r: 1, g: 1, b: 1, a: 1}
   height: 35
   width: 35

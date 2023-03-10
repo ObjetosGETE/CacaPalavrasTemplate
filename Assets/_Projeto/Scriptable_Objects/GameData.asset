@@ -16,5 +16,9 @@ MonoBehaviour:
   - Comida
   - Alimento
   - "Nutri\xE7\xE3o"
+  - Carne
+  - Verduras
+  - Salada
+  - Vegetariano
   boardSize: 12
   diagonal: 0

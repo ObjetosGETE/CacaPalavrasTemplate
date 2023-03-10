@@ -18,11 +18,11 @@ public class Letter : MonoBehaviour
         _tmpRef = GetComponent<TextMeshProUGUI>();
         _rtRef = GetComponent<RectTransform>();
         data.onChanged.AddListener(UpdateSettings);
+        UpdateSettings();
     }
 
     private void UpdateSettings()
     {
-        Debug.Log("Changed");
         _tmpRef.color = data.letterColor;
         _tmpRef.fontSize = data.letterSize;
         _rtRef.sizeDelta = new Vector2(data.width, data.height);

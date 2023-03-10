@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Text;
 
-public class Board : MonoBehaviour
+public class BoardGenerator : MonoBehaviour
 {
 
     [SerializeField] private SettingsObject gameData;
@@ -10,17 +10,84 @@ public class Board : MonoBehaviour
     private const string _PLACEHOLDER = "0";
 
     private string[,] _board;
-    private void Start()
+    private Dictionary<string,float> _letterProbabilty = new Dictionary<string, float>
+    {
+        {"A",14.63f},
+        {"E",12.57f},
+        {"O",10.73f},
+        {"S",7.81f},
+        {"R",6.53f},
+        {"I",6.18f},
+        {"N",5.05f},
+        {"D",4.99f},
+        {"M",4.74f},
+        {"U",4.63f},
+        {"T",4.34f},
+        {"C",3.88f},
+        {"L",2.78f},
+        {"P",2.52f},
+        {"V",1.67f},
+        {"G",1.30f},
+        {"H",1.28f},
+        {"Q",1.20f},
+        {"B",1.04f},
+        {"F",1.02f},
+        {"Z",0.47f},
+        {"J",0.40f},
+        {"X",0.21f},
+        {"K",0.02f},
+        {"W",0.01f},
+        {"Y",0.01f},
+
+
+    };
+
+    private void Awake()
     {
         _board = new string[gameData.boardSize,gameData.boardSize];
 
         PopulateWithZeroes();
 
-        PrintBoard();
+        //PrintBoard();
 
-        GenerateBoard();
+        PlaceWords();
 
-        PrintBoard();
+        //PrintBoard();
+
+        FillBlanksRandomly();
+
+        //PrintBoard();
+
+    }
+
+    public string[,] GetBoard()
+    {
+        return _board;
+    }
+
+    private void FillBlanksRandomly()
+    {
+        for (int i = 0; i < gameData.boardSize; i++)
+        {
+            for(int j = 0; j< gameData.boardSize;j++)
+            {
+                if(_board[i,j].Equals(_PLACEHOLDER))
+                {
+                    float prob = Random.Range(0,100f);
+
+                    foreach (var l in _letterProbabilty.Keys)
+                    {
+                        if (prob < _letterProbabilty[l])
+                        {
+                            _board[i,j] = l;
+                            break;
+                        }
+                        prob -= _letterProbabilty[l];
+                    }
+
+                }
+            }
+        }
     }
 
     private void PopulateWithZeroes()
@@ -51,20 +118,12 @@ public class Board : MonoBehaviour
         }
         Debug.Log(sb.ToString());
     }
-
-    private void GenerateBoard()
-    {
-
-        PlaceWords();
-    }
-
     private void PlaceWords()
     {
         foreach (string w in gameData.words)
         {
             var word = w.ToUpper();
             GetPossiblePlacements(word);
-            PrintBoard();
         }  
     }
 
@@ -104,7 +163,7 @@ public class Board : MonoBehaviour
                 }
 
             }
-            
+
             if (fit)
             {
                 break;
