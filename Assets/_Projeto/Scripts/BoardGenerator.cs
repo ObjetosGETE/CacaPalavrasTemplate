@@ -6,11 +6,12 @@ public class BoardGenerator : MonoBehaviour
 {
 
     [SerializeField] private SettingsObject gameData;
+    [SerializeField] private BoardObject boardData;
 
-    private const string _PLACEHOLDER = "0";
+    private const string Placeholder = "0";
 
     private string[,] _board;
-    private Dictionary<string,float> _letterProbabilty = new Dictionary<string, float>
+    private Dictionary<string,float> _letterProbability = new()
     {
         {"A",14.63f},
         {"E",12.57f},
@@ -58,6 +59,8 @@ public class BoardGenerator : MonoBehaviour
 
         //PrintBoard();
 
+        boardData.Board = _board;
+
     }
 
     public string[,] GetBoard()
@@ -71,18 +74,18 @@ public class BoardGenerator : MonoBehaviour
         {
             for(int j = 0; j< gameData.boardSize;j++)
             {
-                if(_board[i,j].Equals(_PLACEHOLDER))
+                if(_board[i,j].Equals(Placeholder))
                 {
                     float prob = Random.Range(0,100f);
 
-                    foreach (var l in _letterProbabilty.Keys)
+                    foreach (var l in _letterProbability.Keys)
                     {
-                        if (prob < _letterProbabilty[l])
+                        if (prob < _letterProbability[l])
                         {
                             _board[i,j] = l;
                             break;
                         }
-                        prob -= _letterProbabilty[l];
+                        prob -= _letterProbability[l];
                     }
 
                 }
@@ -96,7 +99,7 @@ public class BoardGenerator : MonoBehaviour
         {
             for(int j = 0; j< gameData.boardSize;j++)
             {
-                _board[i,j] = _PLACEHOLDER;
+                _board[i,j] = Placeholder;
             }
         }
     }
@@ -154,7 +157,7 @@ public class BoardGenerator : MonoBehaviour
                 var endPoint = posDir[next];
                 posDir.RemoveAt(next);
 
-                var range = GetLineBetweenPoints(newPos,endPoint);
+                var range = BoardObject.GetLineBetweenPoints(newPos,endPoint);
 
                 if(TryPlaceWord(w,range))
                 {
@@ -177,66 +180,18 @@ public class BoardGenerator : MonoBehaviour
         }
     }
 
-    private List<Vector2Int> GetLineBetweenPoints(Vector2Int p1, Vector2Int p2)
-    {
-        var range = new List<Vector2Int>();
-
-        if(p1.x == p2.x)
-        {
-            //P1 to P2 Y
-            if (p1.y < p2.y)
-            {
-                for (int i = 0; i < p2.y-p1.y; i++)
-                {
-                    range.Add(new Vector2Int(p1.x,p1.y+i));
-                }
-            }
-            //P2 to P1 Y
-            else
-            {
-                for (int i = 0; i < p1.y-p2.y; i++)
-                {
-                    range.Add(new Vector2Int(p1.x,p2.y+i));
-                }
-            }
-        }
-        // Infers Y is equal for both;
-        else
-        {
-            //P1 to P2 X
-            if (p1.x < p2.x)
-            {
-                for (int i = 0; i < p2.x-p1.x; i++)
-                {
-                    range.Add(new Vector2Int(p1.x+i,p1.y));
-                }
-            }
-            //P2 to P1 X
-            else
-            {
-                for (int i = 0; i < p1.x-p2.x; i++)
-                {
-                    range.Add(new Vector2Int(p2.x+i,p1.y));
-                }
-            }
-        }
-
-
-        return range;
-    }
-
     private bool TryPlaceWord(string word, List<Vector2Int> range)
     {
-
+        Debug.Log(string.Format("A palavra é {0} tam {2}, e o tamanho do range é {1}.",word,range.Count,word.Length));
         var replaceble = new List<Vector2Int>();
         
         for (int i =0;i < range.Count; i++)
         {
             var x = range[i].x;
             var y = range[i].y;
-            var l = word[i];
+            var l = char.ToString(word[i]);
 
-            if (_board[x,y].Equals(_PLACEHOLDER))
+            if (_board[x,y].Equals(Placeholder))
             {
                 _board[x,y] = string.Format("{0}",l);
                 replaceble.Add(range[i]);
@@ -247,7 +202,7 @@ public class BoardGenerator : MonoBehaviour
                 {
                     x = r.x;
                     y = r.y;
-                    _board[x,y] = _PLACEHOLDER;
+                    _board[x,y] = Placeholder;
                 }
                 replaceble.Clear();
                 return false;
@@ -261,10 +216,10 @@ public class BoardGenerator : MonoBehaviour
     {
         List<Vector2Int> possibilities = new List<Vector2Int>
             {
-                new Vector2Int(initialPos.x,initialPos.y-wSize),
-                new Vector2Int(initialPos.x,initialPos.y+wSize),
-                new Vector2Int(initialPos.x+wSize,initialPos.y),
-                new Vector2Int(initialPos.x-wSize,initialPos.y)
+                new(initialPos.x,initialPos.y-wSize+1),
+                new(initialPos.x,initialPos.y+wSize-1),
+                new(initialPos.x+wSize-1,initialPos.y),
+                new(initialPos.x-wSize+1,initialPos.y)
             };
 
         if (gameData.diagonal)
@@ -311,7 +266,7 @@ public class BoardGenerator : MonoBehaviour
             l = _board[p.x,p.y];
 
             // IF Chosen point is empty, or has the same letter as the first letter of the word we are trying to place.
-            if(l.Equals(_PLACEHOLDER) || l.Equals(word[0]))
+            if(l.Equals(Placeholder) || l.Equals(word[0]))
             {
                 found = true;
                 break;

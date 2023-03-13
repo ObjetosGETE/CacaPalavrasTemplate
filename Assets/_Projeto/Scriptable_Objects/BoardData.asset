@@ -9,16 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0efce95d67d26d643b30dd54ef0ce29e, type: 3}
-  m_Name: GameData
+  m_Script: {fileID: 11500000, guid: 045ed1ae57214678a6ba9f1bc40baf84, type: 3}
+  m_Name: BoardData
   m_EditorClassIdentifier: 
-  words:
-  - Objetos
-  - Gete
-  - "Programa\xE7\xE3o"
-  - "Ilustra\xE7\xE3o"
-  - Modelagem
-  - Senac
-  - "Fecom\xE9rcio"
-  boardSize: 12
-  diagonal: 0

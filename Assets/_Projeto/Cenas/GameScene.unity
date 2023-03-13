@@ -2433,6 +2433,7 @@ MonoBehaviour:
   gameData: {fileID: 11400000, guid: 3d36917930c3b5c478bdf43d2819f9ae, type: 2}
   rowPrefab: {fileID: 7113527803723759018, guid: fb22b0ec42fb71f4cbb279f87ba5cde7, type: 3}
   letterPrefab: {fileID: 4921572461105362173, guid: a044bd5517a8fea489115f06dc225144, type: 3}
+  wordSelection: {fileID: 1166169489}
 --- !u!114 &270743128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2446,6 +2447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameData: {fileID: 11400000, guid: 3d36917930c3b5c478bdf43d2819f9ae, type: 2}
+  boardData: {fileID: 11400000, guid: 4275370efc2bdd041992161756d2a37a, type: 2}
 --- !u!1 &274459717
 GameObject:
   m_ObjectHideFlags: 0
@@ -9389,7 +9391,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 411.71}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 760, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1166169487
 MonoBehaviour:
@@ -9411,7 +9413,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MASF
+  m_text: ...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -9500,6 +9502,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a51c78026b0774e8e34d55fa501910, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boardData: {fileID: 11400000, guid: 4275370efc2bdd041992161756d2a37a, type: 2}
+  settingsObject: {fileID: 11400000, guid: 3d36917930c3b5c478bdf43d2819f9ae, type: 2}
+  wordList: {fileID: 1442376352}
 --- !u!1 &1175385644
 GameObject:
   m_ObjectHideFlags: 0
@@ -16081,7 +16086,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1975595460
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31117,7 +31122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6788560116782065890, guid: 49fc9af47f72d064196fabf8d9054534, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6788560116782065891, guid: 49fc9af47f72d064196fabf8d9054534, type: 3}
       propertyPath: m_Pivot.x

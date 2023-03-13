@@ -10,6 +10,7 @@ public class BoardInstantiator : MonoBehaviour
     [SerializeField] private SettingsObject gameData;
     [SerializeField] private GameObject rowPrefab;
     [SerializeField] private GameObject letterPrefab;
+    [SerializeField] private WordSelection wordSelection;
 
 
     private string[,] _boardRef;
@@ -44,6 +45,7 @@ public class BoardInstantiator : MonoBehaviour
                 var newLetter = Instantiate(letterPrefab,Vector3.zero,Quaternion.identity,newRow.transform);
                 newLetter.name = j.ToString();
                 newLetter.GetComponentInChildren<TextMeshProUGUI>().text = _boardRef[i,j];
+                newLetter.GetComponentInChildren<Letter>().SetPoint(new Vector2Int(i, j)).SetWordSelectionReference(wordSelection);
             }
         }
     }
